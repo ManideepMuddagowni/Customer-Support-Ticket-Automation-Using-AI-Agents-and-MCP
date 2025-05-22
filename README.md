@@ -1,4 +1,3 @@
-
 # 🤖 AI Customer Support Ticket Resolver Using Agents and MCP (Model Context Protocol)
 
 This Project uses large language models to automate customer support. It classifies tickets, analyzes content, generate and send responses automatically to the given customer email address. Built with Streamlit and MCP Inspector Tool.
@@ -138,7 +137,7 @@ mcp install mcp_server.py
 run - npx @modelcontextprotocol/inspector python mcp_server.py
 ```
 
----
+![1747946708892](image/README/1747946708892.png)---
 
 ## 📌 Troubleshooting
 
