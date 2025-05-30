@@ -1,45 +1,57 @@
 import os
-import requests
 from dotenv import load_dotenv
+from groq import Groq
+
 load_dotenv()
-import sys
-sys.stdout.reconfigure(encoding='utf-8')
-print("✅ EURI API KEY (partial):", os.getenv("EURI_API_KEY")[:20])
 
-EURI_API_URL = "https://api.euron.one/api/v1/euri/alpha/chat/completions"
-EURI_API_KEY = os.getenv("EURI_API_KEY")
+GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+if not GROQ_API_KEY:
+    raise ValueError("🚫 GROQ_API_KEY is missing from your .env file")
 
-def generate_reply(text: str) -> str:
+client = Groq(api_key=GROQ_API_KEY)
+
+def generate_reply(name: str, text: str) -> str:
     prompt = f"""
-You are a friendly and professional customer support agent
+You are a friendly and professional customer support agent.
 
-Respond to the following issue with empathy, clear explanation, and helpful advice.
+Please respond to {name} regarding the following issue with empathy, a clear explanation, and helpful advice.
 
 Issue:
 \"\"\"{text}\"\"\"
 
-Only return the final response message.
+Only return the final response message. Start the message with "Hi {name}," and end with "Best regards, AI Support Team".
 """
+    try:
+        completion = client.chat.completions.create(
+            model="llama3-70b-8192",
+            messages=[{"role": "user", "content": prompt}],
+            temperature=0.7,
+            max_tokens=500,
+            top_p=1,
+            stream=True,
+            stop=None,
+        )
+    except Exception as e:
+        print(f"⚠️ API call failed: {e}")
+        return None
 
-    headers = {
-        "Content-Type": "application/json",
-        "Authorization": f"Bearer {EURI_API_KEY}"
-    }
-
-    payload = {
-        "model": "gpt-4.1-nano",
-        "messages": [
-            {"role": "user", "content": prompt}
-        ],
-        "max_tokens": 500,
-        "temperature": 0.5
-    }
+    reply_text = ""  # Collect reply here
 
     try:
-        response = requests.post(EURI_API_URL, headers=headers, json=payload)
-        result = response.json()
-        return result["choices"][0]["message"]["content"].strip()
+        for chunk in completion:
+            if hasattr(chunk, "choices") and chunk.choices:
+                delta_content = getattr(chunk.choices[0].delta, "content", None)
+                if delta_content:
+                    print(delta_content, end="", flush=True)  # optional: streaming print
+                    reply_text += delta_content
+            else:
+                print("\n⚠️ Unexpected chunk format or error received.", flush=True)
+                break
 
     except Exception as e:
-        print("❌ Reply Generation Error:", e)
-        return "We’re experiencing some technical issues. Our support team will respond as soon as possible."
+        print(f"\n⚠️ Error during streaming response: {e}", flush=True)
+
+    print()  # newline after streaming print
+    return reply_text
+
+
