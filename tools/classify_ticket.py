@@ -1,13 +1,16 @@
 import os
-import requests
 import json
 from dotenv import load_dotenv
+from groq import Groq
+
 load_dotenv()
-import sys
-sys.stdout.reconfigure(encoding='utf-8')
-print("🔐 EURI API Key:", os.getenv("EURI_API_KEY"))
-EURI_API_URL = "https://api.euron.one/api/v1/euri/alpha/chat/completions"
-EURI_API_KEY = os.getenv("EURI_API_KEY")
+
+GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+if not GROQ_API_KEY:
+    raise ValueError("🚫 GROQ_API_KEY is missing from your .env file")
+
+client = Groq(api_key=GROQ_API_KEY)
+
 def classify_ticket(text: str) -> dict:
     prompt = f"""
 You are a smart support ticket classifier.
@@ -26,27 +29,20 @@ Customer Ticket:
 \"\"\"{text}\"\"\"
 """
 
-    headers = {
-        "Content-Type": "application/json",
-        "Authorization": f"Bearer {EURI_API_KEY}"
-    }
-
-    payload = {
-        "model": "gpt-4.1-nano",
-        "messages": [
-            {"role": "user", "content": prompt}
-        ],
-        "max_tokens": 500,
-        "temperature": 0.3
-    }
-
     try:
-        response = requests.post(EURI_API_URL, headers=headers, json=payload)
-        result = response.json()
-        print("📨 EURI Raw Response:", result)
-        content = result["choices"][0]["message"]["content"]
+        completion = client.chat.completions.create(
+            model="llama3-70b-8192",  # your intended model
+            messages=[{"role": "user", "content": prompt}],
+            max_tokens=500,
+            temperature=0.3,
+            stream=False  # no streaming for classification, simpler usage
+        )
 
-        # Safer JSON parsing
+        # The response content text is here:
+        content = completion.choices[0].message.content
+        print("📨 Groq Raw Response:", content)
+
+        # Safely parse JSON string returned by the model
         parsed = json.loads(content)
         return {
             "sentiment": parsed.get("sentiment", "Unknown"),

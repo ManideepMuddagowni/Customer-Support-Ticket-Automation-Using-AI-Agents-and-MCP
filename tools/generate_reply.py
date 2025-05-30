@@ -14,13 +14,20 @@ def generate_reply(name: str, text: str) -> str:
     prompt = f"""
 You are a friendly and professional customer support agent.
 
-Please respond to {name} regarding the following issue with empathy, a clear explanation, and helpful advice.
+Respond to the following issue with empathy, clear explanation, and helpful advice.
+
+Include a greeting using the customer's first name and end the message with:
+Best regards,
+Customer Support Team
+
+Customer Name: {name}
 
 Issue:
 \"\"\"{text}\"\"\"
 
-Only return the final response message. Start the message with "Hi {name}," and end with "Best regards, AI Support Team".
+Only return the final response message.
 """
+
     try:
         completion = client.chat.completions.create(
             model="llama3-70b-8192",
@@ -33,7 +40,7 @@ Only return the final response message. Start the message with "Hi {name}," and 
         )
     except Exception as e:
         print(f"⚠️ API call failed: {e}")
-        return None
+        return f"Hello {name},\n\nWe are currently unable to process your request. Please try again later.\n\nBest regards,\nCustomer Support Team"
 
     reply_text = ""  # Collect reply here
 
@@ -53,5 +60,3 @@ Only return the final response message. Start the message with "Hi {name}," and 
 
     print()  # newline after streaming print
     return reply_text
-
-
