@@ -71,7 +71,6 @@ The AI Ticket Manager script handles all incoming tickets from the registration 
 
 
 
-![1747940913093](image/README/1747940913093.png)
 
 ### 🛠 What It Does
 
