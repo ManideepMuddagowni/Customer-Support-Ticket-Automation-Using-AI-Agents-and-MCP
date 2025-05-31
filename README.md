@@ -70,7 +70,6 @@ The form allows you to:
 The AI Ticket Manager script handles all incoming tickets from the registration UI or external sources.
 
 
-![1747940962215](image/README/1747940962215.png)
 
 ![1747940913093](image/README/1747940913093.png)
 
