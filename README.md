@@ -38,7 +38,7 @@ pip install -r requirements.txt
 1. Create a `.env` file with:
 
 ```env
-EURi_API_KEY=your_euri_key_here
+GROQ_API_KEY=your_groq_key_here
 GMAIL_USER=your_email@gmail.com
 GMAIL_APP_PASSWORD=your_gmail_app_password
 ```
@@ -51,7 +51,6 @@ GMAIL_APP_PASSWORD=your_gmail_app_password
 
 To view the customer support ticket registration form:
 
-![1747940735847](image/README/1747940735847.png)
 
 ### ▶️ Run the UI
 
@@ -70,7 +69,6 @@ The form allows you to:
 
 The AI Ticket Manager script handles all incoming tickets from the registration UI or external sources.
 
-![1747940824825](image/README/1747940824825.png)
 
 ![1747940962215](image/README/1747940962215.png)
 
