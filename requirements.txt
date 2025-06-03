@@ -1,5 +1,5 @@
 gspread
-streamlit==1.35.0
+Streamlit==1.37.1
 oauth2client==4.1.3
 requests==2.31.0
 python-dotenv==1.0.1
