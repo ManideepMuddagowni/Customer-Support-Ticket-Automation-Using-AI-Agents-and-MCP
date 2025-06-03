@@ -16,7 +16,7 @@ def resolve_ticket(name: str, email: str, message: str) -> dict:
         issue_type = classification["issue_type"]
 
         # Step 2: Generate reply
-        reply = generate_reply(message)
+        reply = generate_reply(name, message)
 
         # Step 3: Update Google Sheet (append only)
         fake_ticket = {
