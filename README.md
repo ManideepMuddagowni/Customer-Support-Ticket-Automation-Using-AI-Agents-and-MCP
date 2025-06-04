@@ -51,6 +51,7 @@ GMAIL_APP_PASSWORD=your_gmail_app_password
 
 To view the customer support ticket registration form:
 
+![1749075472921](image/README/1749075472921.png)
 
 ### ▶️ Run the UI
 
@@ -69,8 +70,7 @@ The form allows you to:
 
 The AI Ticket Manager script handles all incoming tickets from the registration UI or external sources.
 
-
-
+![1749075499860](image/README/1749075499860.png)
 
 ### 🛠 What It Does
 
