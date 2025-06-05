@@ -11,6 +11,9 @@ This Project uses large language models to automate customer support. It classif
 - 📊 Automatically Logs tickets into a Google Sheet
 - 🖥️ Has a simple Streamlit web interface and  MCP Inspector Tool
 
+## Demo
+videoUrl: https://drive.google.com/file/d/12AznYzfWe23n0x6ZmxI7E7--NwtcBGVO/view?usp=sharing
+
 ## 🛠 Installation
 
 ### 1. Clone the project
