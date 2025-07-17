@@ -1,3 +1,5 @@
+[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/manideepmuddagowni-customer-support-ticket-automation-using-ai-agents-and-mcp-badge.png)](https://mseep.ai/app/manideepmuddagowni-customer-support-ticket-automation-using-ai-agents-and-mcp)
+
 # 🤖 AI Customer Support Ticket Resolver Using Agents and MCP (Model Context Protocol)
 
 This Project uses large language models to automate customer support. It classifies tickets, analyzes content, generate and send responses automatically to the given customer email address. Built with Streamlit and MCP Inspector Tool.
